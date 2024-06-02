@@ -26,11 +26,9 @@ public class Quadro {
     @ManyToOne
     @JoinColumn(name = "projeto_id")
     @JsonIgnoreProperties("quadro")
-    @JsonIgnore
     Projeto projeto;
 
     @OneToMany(mappedBy = "quadro", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("quadro")
-    @JsonIgnore
     List<Tarefa> tarefas;
 }
