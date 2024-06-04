@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -31,4 +32,9 @@ public class Quadro {
     @OneToMany(mappedBy = "quadro", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("quadro")
     List<Tarefa> tarefas;
+
+    public Quadro(String titulo, Projeto projeto) {
+        this.titulo = titulo;
+        this.projeto = projeto;
+    }
 }

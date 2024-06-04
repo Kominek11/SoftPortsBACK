@@ -1,9 +1,9 @@
 package com.soft.softports.Controller;
 
-import com.querydsl.core.BooleanBuilder;
 import com.soft.softports.Model.Projeto;
-import com.soft.softports.Repository.dto.Pagina;
-import com.soft.softports.Repository.dto.ProjetoResponse;
+import com.soft.softports.Repository.dto.request.ProjetoRequestBody;
+import com.soft.softports.Repository.dto.response.Pagina;
+import com.soft.softports.Repository.dto.response.ProjetoResponse;
 import com.soft.softports.Repository.interfaces.ProjetoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -36,8 +35,8 @@ public class ProjetoController {
     }
 
     @PostMapping("/projeto")
-    public Projeto saveProjeto(@RequestBody Projeto projeto) {
-        return projetoRepository.save(projeto);
+    public ProjetoResponse saveProjeto(@RequestBody ProjetoRequestBody projetoRequestBody) {
+        return criarProjeto(projetoRequestBody);
     }
 
     @DeleteMapping("/projeto/{id}")
@@ -51,8 +50,7 @@ public class ProjetoController {
                 projeto.getNome(),
                 projeto.getDescricao(),
                 projeto.getDataInicio(),
-                projeto.getDataFim(),
-                projeto.getQuadro()
+                projeto.getDataFim()
         );
     }
 
@@ -81,5 +79,22 @@ public class ProjetoController {
                 conteudo
         );
 
+    }
+
+    private ProjetoResponse criarProjeto(ProjetoRequestBody projetoRequestBody) {
+        Projeto projeto = new Projeto(
+                projetoRequestBody.nome(),
+                projetoRequestBody.descricao(),
+                projetoRequestBody.dataInicio(),
+                projetoRequestBody.dataFim()
+        );
+        projetoRepository.save(projeto);
+        return new ProjetoResponse(
+                null,
+                projetoRequestBody.nome(),
+                projetoRequestBody.descricao(),
+                projetoRequestBody.dataInicio(),
+                projetoRequestBody.dataFim()
+        );
     }
 }

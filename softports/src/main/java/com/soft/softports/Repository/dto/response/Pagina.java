@@ -1,4 +1,4 @@
-package com.soft.softports.Repository.dto;
+package com.soft.softports.Repository.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

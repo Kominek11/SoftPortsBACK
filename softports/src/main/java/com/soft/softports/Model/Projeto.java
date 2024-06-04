@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Projeto {
 
@@ -39,4 +41,11 @@ public class Projeto {
     @OneToMany(mappedBy = "projeto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("projeto")
     List<Usuario> usuario;
+
+    public Projeto(String nome, String descricao, LocalDateTime dataInicio, LocalDateTime dataFim) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+    }
 }

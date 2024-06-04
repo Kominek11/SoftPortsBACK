@@ -13,24 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Usuario {
+public class Classificacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long usuarioId;
+    Long classificacaoId;
 
     @Column
     String nome;
 
-    @Column
-    String cargo;
-
-    @ManyToOne
-    @JoinColumn(name = "projeto_id")
-    @JsonIgnoreProperties("usuario")
-    Projeto projeto;
-
-    @ManyToMany(mappedBy = "responsaveis")
-    @JsonIgnoreProperties("responsaveis")
+    @ManyToMany(mappedBy = "classificacoes")
+    @JsonIgnoreProperties("classificacoes")
     List<Tarefa> tarefas;
 }
