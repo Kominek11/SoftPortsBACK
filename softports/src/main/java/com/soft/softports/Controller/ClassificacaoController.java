@@ -49,8 +49,7 @@ public class ClassificacaoController {
     private ClassificacaoResponse convertToClassificacaoResponse(Classificacao classificacao) {
         return new ClassificacaoResponse(
                 classificacao.getClassificacaoId(),
-                classificacao.getNome(),
-                classificacao.getTarefas()
+                classificacao.getNome()
         );
     }
 
@@ -95,8 +94,7 @@ public class ClassificacaoController {
         classificacaoRepository.save(classificacao);
         return new ClassificacaoResponse(
                 null,
-                classificacaoRequestBody.nome(),
-                listaTarefas
+                classificacaoRequestBody.nome()
         );
     }
 }

@@ -71,4 +71,8 @@ public class Tarefa {
     @JoinColumn(name = "quadro_id")
     @JsonIgnoreProperties("tarefa")
     Quadro quadro;
+
+    @OneToMany(mappedBy = "tarefa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("tarefa")
+    List<CasoDeTeste> casoDeTestes;
 }

@@ -14,9 +14,7 @@ public record ClassificacaoResponse(
 
         Long classificacaoId,
 
-        String nome,
-
-        List<Tarefa> tarefas
+        String nome
 ) { }
 
 

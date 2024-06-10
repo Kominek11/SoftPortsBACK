@@ -2,8 +2,7 @@ package com.soft.softports.Controller;
 
 import com.soft.softports.Model.*;
 import com.soft.softports.Repository.dto.request.TarefaRequestBody;
-import com.soft.softports.Repository.dto.response.Pagina;
-import com.soft.softports.Repository.dto.response.TarefaResponse;
+import com.soft.softports.Repository.dto.response.*;
 import com.soft.softports.Repository.interfaces.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,7 @@ public class TarefaController {
     ClassificacaoRepository classificacaoRepository;
     HistoricoRepository historicoRepository;
     UsuarioRepository usuarioRepository;
+    CasoDeTesteRepository casoDeTesteRepository;
 
     @GetMapping("/tarefa")
     public Pagina<TarefaResponse> getAllTarefas() {
@@ -50,6 +50,46 @@ public class TarefaController {
     }
 
     private TarefaResponse convertToTarefaResponse(Tarefa tarefa) {
+        List<ClassificacaoResponse> classificacaoResponseList = new ArrayList<>();
+        tarefa.getClassificacoes().forEach(item -> {
+            ClassificacaoResponse classificacaoResponse = new ClassificacaoResponse(
+                    item.getClassificacaoId(),
+                    item.getNome()
+            );
+            classificacaoResponseList.add(classificacaoResponse);
+        });
+        List<UsuarioResponse> usuarioResponseList = new ArrayList<>();
+        tarefa.getResponsaveis().forEach(item -> {
+            UsuarioResponse usuarioResponse = new UsuarioResponse(
+                    item.getUsuarioId(),
+                    item.getNome(),
+                    item.getCargo()
+            );
+            usuarioResponseList.add(usuarioResponse);
+        });
+        List<HistoricoResponse> historicoResponseList = new ArrayList<>();
+        tarefa.getHistorico().forEach(item -> {
+            HistoricoResponse historicoResponse = new HistoricoResponse(
+                    item.getHistoricoId(),
+                    item.getOcorrencia(),
+                    item.getDataCriacao(),
+                    item.getTarefa().getTarefaId()
+            );
+            historicoResponseList.add(historicoResponse);
+        });
+        List<CasoDeTesteResponse> casoDeTesteResponsesList = new ArrayList<>();
+        tarefa.getCasoDeTestes().forEach(item -> {
+            CasoDeTesteResponse casoDeTesteResponse = new CasoDeTesteResponse(
+                    item.getCasoDeTesteId(),
+                    item.getStatus(),
+                    item.getResumo(),
+                    item.getPreCondicao(),
+                    item.getPassos(),
+                    item.getResultadoEsperado(),
+                    item.getObservacoes()
+            );
+            casoDeTesteResponsesList.add(casoDeTesteResponse);
+        });
         return new TarefaResponse(
                 tarefa.getTarefaId(),
                 tarefa.getNome(),
@@ -62,9 +102,10 @@ public class TarefaController {
                 tarefa.getScreenshot(),
                 tarefa.getDescricao(),
                 tarefa.getQuadro().getQuadroId(),
-                tarefa.getClassificacoes(),
-                tarefa.getResponsaveis(),
-                tarefa.getHistorico()
+                classificacaoResponseList,
+                usuarioResponseList,
+                historicoResponseList,
+                casoDeTesteResponsesList
         );
     }
 
@@ -112,6 +153,11 @@ public class TarefaController {
             Historico historico = historicoRepository.findById(item).stream().toList().get(0);
             listaHistoricos.add(historico);
         });
+        List<CasoDeTeste> listaCasosDeTestes = new ArrayList<>();
+        tarefaRequestBody.casosDeTestes().forEach(item -> {
+            CasoDeTeste casoDeTeste = casoDeTesteRepository.findById(item).stream().toList().get(0);
+            listaCasosDeTestes.add(casoDeTeste);
+        });
         Tarefa tarefa = new Tarefa(
                 null,
                 tarefaRequestBody.nome(),
@@ -126,7 +172,8 @@ public class TarefaController {
                 listaClassificacoes,
                 listaResponsaveis,
                 listaHistoricos,
-                quadro
+                quadro,
+                listaCasosDeTestes
         );
         tarefaRepository.save(tarefa);
         return new TarefaResponse(
@@ -141,9 +188,10 @@ public class TarefaController {
                 tarefaRequestBody.screenshot(),
                 tarefaRequestBody.descricao(),
                 quadro.getQuadroId(),
-                listaClassificacoes,
-                listaResponsaveis,
-                listaHistoricos
+                null,
+                null,
+                null,
+                null
         );
     }
 }

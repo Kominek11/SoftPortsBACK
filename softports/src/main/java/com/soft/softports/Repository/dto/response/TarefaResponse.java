@@ -37,11 +37,13 @@ public record TarefaResponse(
 
         Long quadroId,
 
-        List<Classificacao> classificacoes,
+        List<ClassificacaoResponse> classificacoes,
 
-        List<Usuario> responsaveis,
+        List<UsuarioResponse> responsaveis,
 
-        List<Historico> historicos
+        List<HistoricoResponse> historicos,
+
+        List<CasoDeTesteResponse> casosDeTestes
 ) { }
 
 
