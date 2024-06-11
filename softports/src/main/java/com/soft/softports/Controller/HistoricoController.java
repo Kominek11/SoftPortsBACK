@@ -54,7 +54,7 @@ public class HistoricoController {
                 historico.getHistoricoId(),
                 historico.getOcorrencia(),
                 historico.getDataCriacao(),
-                historico.getTarefa().getTarefaId()
+                historico.getTarefa().getId()
         );
     }
 
@@ -98,7 +98,7 @@ public class HistoricoController {
                 null,
                 historicoRequestBody.ocorrencia(),
                 historicoRequestBody.dataCriacao(),
-                tarefa.getTarefaId()
+                tarefa.getId()
         );
     }
 }
