@@ -21,9 +21,6 @@ public class Tarefa {
     Long id;
 
     @Column
-    String nome;
-
-    @Column
     String titulo;
 
     @Column
@@ -42,7 +39,7 @@ public class Tarefa {
     String status;
 
     @Column
-    String screenshot;
+    List<String> screenshots;
 
     @Column
     String descricao;
@@ -72,7 +69,7 @@ public class Tarefa {
     @JsonIgnoreProperties("tarefa")
     Quadro quadro;
 
-    @OneToMany(mappedBy = "tarefa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "tarefa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("tarefa")
-    List<CasoDeTeste> casoDeTestes;
+    CasoDeTeste casoDeTeste;
 }

@@ -39,8 +39,8 @@ public class CasoDeTeste {
     @Column
     String observacoes;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "tarefa_id")
-    @JsonIgnoreProperties("CasoDeTeste")
+    @JsonIgnoreProperties("casoDeTeste")
     Tarefa tarefa;
 }

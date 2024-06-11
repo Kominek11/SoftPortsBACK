@@ -16,8 +16,6 @@ public record TarefaResponse(
 
         Long id,
 
-        String nome,
-
         String titulo,
 
         String versaoSO,
@@ -31,7 +29,7 @@ public record TarefaResponse(
 
         String status,
 
-        String screenshot,
+        List<String> screenshot,
 
         String descricao,
 
@@ -43,7 +41,7 @@ public record TarefaResponse(
 
         List<HistoricoResponse> historicos,
 
-        List<CasoDeTesteResponse> casosDeTestes
+        CasoDeTesteResponse casosDeTestes
 ) { }
 
 

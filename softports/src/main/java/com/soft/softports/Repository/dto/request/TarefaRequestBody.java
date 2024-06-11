@@ -17,8 +17,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record TarefaRequestBody(
 
-        String nome,
-
         String titulo,
 
         String versaoSO,
@@ -32,7 +30,7 @@ public record TarefaRequestBody(
 
         String status,
 
-        String screenshot,
+        List<String> screenshots,
 
         String descricao,
 
@@ -44,5 +42,5 @@ public record TarefaRequestBody(
 
         List<Long> historicos,
 
-        List<Long> casosDeTestes
+        Long casoDeTeste
 ) { }
