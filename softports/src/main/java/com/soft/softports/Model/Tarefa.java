@@ -18,7 +18,7 @@ public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long tarefaId;
+    Long id;
 
     @Column
     String nome;

@@ -73,7 +73,7 @@ public class TarefaController {
                     item.getHistoricoId(),
                     item.getOcorrencia(),
                     item.getDataCriacao(),
-                    item.getTarefa().getTarefaId()
+                    item.getTarefa().getId()
             );
             historicoResponseList.add(historicoResponse);
         });
@@ -91,7 +91,7 @@ public class TarefaController {
             casoDeTesteResponsesList.add(casoDeTesteResponse);
         });
         return new TarefaResponse(
-                tarefa.getTarefaId(),
+                tarefa.getId(),
                 tarefa.getNome(),
                 tarefa.getTitulo(),
                 tarefa.getVersaoSO(),
