@@ -33,8 +33,6 @@ public record TarefaResponse(
 
         String descricao,
 
-        Long quadroId,
-
         List<ClassificacaoResponse> classificacoes,
 
         List<UsuarioResponse> responsaveis,

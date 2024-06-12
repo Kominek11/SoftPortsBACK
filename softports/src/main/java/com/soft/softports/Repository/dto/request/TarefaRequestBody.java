@@ -36,8 +36,6 @@ public record TarefaRequestBody(
 
         String descricao,
 
-        Long quadroId,
-
         List<Long> classificacoes,
 
         List<Long> responsaveis,

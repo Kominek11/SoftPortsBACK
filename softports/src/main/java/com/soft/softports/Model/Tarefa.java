@@ -67,11 +67,6 @@ public class Tarefa {
     @JsonIgnoreProperties("tarefa")
     List<Historico> historico;
 
-    @ManyToOne
-    @JoinColumn(name = "quadro_id")
-    @JsonIgnoreProperties("tarefa")
-    Quadro quadro;
-
     @ManyToMany
     @JoinTable(
             name = "tarefa_casoDeTeste",

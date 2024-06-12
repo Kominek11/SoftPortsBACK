@@ -29,9 +29,6 @@ public class Quadro {
     @JsonIgnore
     Projeto projeto;
 
-    @OneToMany(mappedBy = "quadro", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("quadro")
-    List<Tarefa> tarefas;
 
     public Quadro(String titulo, Projeto projeto) {
         this.titulo = titulo;

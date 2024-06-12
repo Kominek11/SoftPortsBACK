@@ -44,9 +44,70 @@ public class TarefaController {
         return criarTarefa(tarefaRequestBody);
     }
 
+    @PutMapping("/tarefa/{id}")
+    public ResponseEntity<TarefaResponse> updateTarefa(@PathVariable Long id, @RequestBody TarefaRequestBody tarefaRequestBody) {
+        Optional<Tarefa> tarefaOptional = tarefaRepository.findById(id);
+        if (tarefaOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Tarefa tarefa = tarefaOptional.get();
+
+        tarefa.setTitulo(tarefaRequestBody.titulo());
+        tarefa.setVersaoSO(tarefaRequestBody.versaoSO());
+        tarefa.setCaminho(tarefaRequestBody.caminho());
+        tarefa.setDataCorrecao(tarefaRequestBody.dataCorrecao());
+        tarefa.setPrioridade(tarefaRequestBody.prioridade());
+        tarefa.setStatus(tarefaRequestBody.status());
+        tarefa.setScreenshots(tarefaRequestBody.screenshots());
+        tarefa.setDescricao(tarefaRequestBody.descricao());
+
+        List<Classificacao> listaClassificacoes = new ArrayList<>();
+        tarefaRequestBody.classificacoes().forEach(item -> {
+            Classificacao classificacao = classificacaoRepository.findById(item).orElse(null);
+            if (classificacao != null) {
+                listaClassificacoes.add(classificacao);
+            }
+        });
+        tarefa.setClassificacoes(listaClassificacoes);
+
+        List<Usuario> listaResponsaveis = new ArrayList<>();
+        tarefaRequestBody.responsaveis().forEach(item -> {
+            Usuario usuario = usuarioRepository.findById(item).orElse(null);
+            if (usuario != null) {
+                listaResponsaveis.add(usuario);
+            }
+        });
+        tarefa.setResponsaveis(listaResponsaveis);
+
+        List<Historico> listaHistoricos = new ArrayList<>();
+        tarefaRequestBody.historicos().forEach(item -> {
+            Historico historico = historicoRepository.findById(item).orElse(null);
+            if (historico != null) {
+                listaHistoricos.add(historico);
+            }
+        });
+        tarefa.setHistorico(listaHistoricos);
+
+        List<CasoDeTeste> listaCasosDeTestes = new ArrayList<>();
+        tarefaRequestBody.casoDeTeste().forEach(item -> {
+            CasoDeTeste casoDeTeste = casoDeTesteRepository.findById(item).orElse(null);
+            if (casoDeTeste != null) {
+                listaCasosDeTestes.add(casoDeTeste);
+            }
+        });
+        tarefa.setCasosDeTestes(listaCasosDeTestes);
+
+        Tarefa tarefaAtualizada = tarefaRepository.save(tarefa);
+
+        TarefaResponse tarefaResponse = convertToTarefaResponse(tarefaAtualizada);
+        return ResponseEntity.ok(tarefaResponse);
+    }
+
     @DeleteMapping("/tarefa/{id}")
     public void deleteTarefa(@PathVariable Long id) {
-        tarefaRepository.deleteById(id);
+        Tarefa tarefa = tarefaRepository.findById(id).orElse(null);;
+        tarefaRepository.delete(tarefa);
     }
 
     private TarefaResponse convertToTarefaResponse(Tarefa tarefa) {
@@ -100,7 +161,6 @@ public class TarefaController {
                 tarefa.getStatus(),
                 tarefa.getScreenshots(),
                 tarefa.getDescricao(),
-                tarefa.getQuadro().getQuadroId(),
                 classificacaoResponseList,
                 usuarioResponseList,
                 historicoResponseList,
@@ -136,7 +196,6 @@ public class TarefaController {
     }
 
     private TarefaResponse criarTarefa(TarefaRequestBody tarefaRequestBody) {
-        Quadro quadro = quadroRepository.findById(tarefaRequestBody.quadroId()).stream().toList().get(0);
         List<Classificacao> listaClassificacoes = new ArrayList<>();
         tarefaRequestBody.classificacoes().forEach(item -> {
             Classificacao classificacao = classificacaoRepository.findById(item).stream().toList().get(0);
@@ -171,7 +230,6 @@ public class TarefaController {
                 listaClassificacoes,
                 listaResponsaveis,
                 listaHistoricos,
-                quadro,
                 listaCasosDeTestes
         );
         tarefaRepository.save(tarefa);
@@ -185,7 +243,6 @@ public class TarefaController {
                 tarefaRequestBody.status(),
                 tarefaRequestBody.screenshots(),
                 tarefaRequestBody.descricao(),
-                quadro.getQuadroId(),
                 null,
                 null,
                 null,
