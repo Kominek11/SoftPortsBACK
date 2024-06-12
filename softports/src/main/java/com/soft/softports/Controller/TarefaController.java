@@ -29,7 +29,7 @@ public class TarefaController {
         List<TarefaResponse> tarefaResponses = tarefas.stream()
                 .map(this::convertToTarefaResponse)
                 .toList();
-        return paginar(2, 0, tarefaResponses);
+        return paginar(1000, 0, tarefaResponses);
     }
 
     @GetMapping("/tarefa/{id}")

@@ -26,7 +26,7 @@ public class ClassificacaoController {
         List<ClassificacaoResponse> classificacaoResponses = classificacoes.stream()
                 .map(this::convertToClassificacaoResponse)
                 .toList();
-        return paginar(2, 0, classificacaoResponses);
+        return paginar(1000, 0, classificacaoResponses);
     }
 
     @GetMapping("/classificacao/{id}")

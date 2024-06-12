@@ -27,7 +27,7 @@ public class QuadroController {
         List<QuadroResponse> quadroResponses = quadros.stream()
                 .map(this::convertToQuadroResponse)
                 .toList();
-        return paginar(2, 0, quadroResponses);
+        return paginar(1000, 0, quadroResponses);
     }
 
     @GetMapping("/quadro/{id}")

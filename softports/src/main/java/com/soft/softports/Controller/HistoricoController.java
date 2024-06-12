@@ -29,7 +29,7 @@ public class HistoricoController {
         List<HistoricoResponse> historicoResponses = historicos.stream()
                 .map(this::convertToHistoricoResponse)
                 .toList();
-        return paginar(2, 0, historicoResponses);
+        return paginar(1000, 0, historicoResponses);
     }
 
     @GetMapping("/historico/{id}")

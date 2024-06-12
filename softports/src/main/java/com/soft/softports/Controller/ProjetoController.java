@@ -24,7 +24,7 @@ public class ProjetoController {
         List<ProjetoResponse> projetoResponses = projetos.stream()
                 .map(this::convertToProjetoResponse)
                 .toList();
-        return paginar(2, 0, projetoResponses);
+        return paginar(1000, 0, projetoResponses);
     }
 
     @GetMapping("/projeto/{id}")

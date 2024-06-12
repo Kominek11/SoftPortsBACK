@@ -29,7 +29,7 @@ public class CasoDeTesteController {
         List<CasoDeTesteResponse> casoDeTesteResponses = casoDeTestes.stream()
                 .map(this::convertToCasoDeTesteResponse)
                 .toList();
-        return paginar(2, 0, casoDeTesteResponses);
+        return paginar(1000, 0, casoDeTesteResponses);
     }
 
     @GetMapping("/casoDeTeste/{id}")
@@ -38,7 +38,7 @@ public class CasoDeTesteController {
         return casoDeTesteOptional.map(casoDeTeste -> ResponseEntity.ok(convertToCasoDeTesteResponse(casoDeTeste)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-    
+
 
     @DeleteMapping("/casoDeTeste/{id}")
     public void deleteCasoDeTeste(@PathVariable Long id) {
