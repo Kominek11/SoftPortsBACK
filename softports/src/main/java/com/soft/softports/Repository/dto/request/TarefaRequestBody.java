@@ -19,6 +19,8 @@ public record TarefaRequestBody(
 
         String titulo,
 
+        String nome,
+
         String versaoSO,
 
         String caminho,
@@ -42,5 +44,5 @@ public record TarefaRequestBody(
 
         List<Long> historicos,
 
-        Long casoDeTeste
+        List<Long> casoDeTeste
 ) { }

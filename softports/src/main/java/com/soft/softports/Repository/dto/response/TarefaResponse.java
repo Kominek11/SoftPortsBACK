@@ -41,7 +41,7 @@ public record TarefaResponse(
 
         List<HistoricoResponse> historicos,
 
-        CasoDeTesteResponse casosDeTestes
+        List<CasoDeTesteResponse> casosDeTestes
 ) { }
 
 

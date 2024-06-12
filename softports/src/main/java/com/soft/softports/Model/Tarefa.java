@@ -24,6 +24,9 @@ public class Tarefa {
     String titulo;
 
     @Column
+    String nome;
+
+    @Column
     String versaoSO;
 
     @Column
@@ -69,7 +72,12 @@ public class Tarefa {
     @JsonIgnoreProperties("tarefa")
     Quadro quadro;
 
-    @OneToOne(mappedBy = "tarefa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "tarefa_casoDeTeste",
+            joinColumns = @JoinColumn(name = "tarefa_id"),
+            inverseJoinColumns = @JoinColumn(name = "casoDeTeste_id")
+    )
     @JsonIgnoreProperties("tarefa")
-    CasoDeTeste casoDeTeste;
+    List<CasoDeTeste> casosDeTestes;
 }

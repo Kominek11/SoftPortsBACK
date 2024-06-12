@@ -1,5 +1,6 @@
 package com.soft.softports.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,7 @@ public class CasoDeTeste {
     @Column
     String observacoes;
 
-    @OneToOne
-    @JoinColumn(name = "tarefa_id")
-    @JsonIgnoreProperties("casoDeTeste")
-    Tarefa tarefa;
+    @ManyToMany(mappedBy = "casosDeTestes")
+    @JsonIgnoreProperties("casosDeTestes")
+    List<Tarefa> tarefas;
 }

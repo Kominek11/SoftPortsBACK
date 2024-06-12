@@ -38,11 +38,7 @@ public class CasoDeTesteController {
         return casoDeTesteOptional.map(casoDeTeste -> ResponseEntity.ok(convertToCasoDeTesteResponse(casoDeTeste)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @PostMapping("/casoDeTeste")
-    public CasoDeTesteResponse saveCasoDeTeste(@RequestBody CasoDeTesteRequestBody casoDeTesteRequestBody) {
-        return criarCasoDeTeste(casoDeTesteRequestBody);
-    }
+    
 
     @DeleteMapping("/casoDeTeste/{id}")
     public void deleteCasoDeTeste(@PathVariable Long id) {
@@ -88,27 +84,5 @@ public class CasoDeTesteController {
 
     }
 
-    private CasoDeTesteResponse criarCasoDeTeste(CasoDeTesteRequestBody casoDeTesteRequestBody) {
-        Tarefa tarefa = tarefaRepository.findById(casoDeTesteRequestBody.tarefaId()).stream().toList().get(0);
-        CasoDeTeste casoDeTeste = new CasoDeTeste(
-                null,
-                casoDeTesteRequestBody.status(),
-                casoDeTesteRequestBody.resumo(),
-                casoDeTesteRequestBody.preCondicao(),
-                casoDeTesteRequestBody.passos(),
-                casoDeTesteRequestBody.resultadoEsperado(),
-                casoDeTesteRequestBody.observacoes(),
-                tarefa
-        );
-        casoDeTesteRepository.save(casoDeTeste);
-        return new CasoDeTesteResponse(
-                null,
-                casoDeTesteRequestBody.status(),
-                casoDeTesteRequestBody.resumo(),
-                casoDeTesteRequestBody.preCondicao(),
-                casoDeTesteRequestBody.passos(),
-                casoDeTesteRequestBody.resultadoEsperado(),
-                casoDeTesteRequestBody.observacoes()
-        );
-    }
+
 }
