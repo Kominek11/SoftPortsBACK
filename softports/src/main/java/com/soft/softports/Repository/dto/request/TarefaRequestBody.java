@@ -40,7 +40,5 @@ public record TarefaRequestBody(
 
         List<Long> responsaveis,
 
-        List<Long> historicos,
-
         List<Long> casoDeTeste
 ) { }

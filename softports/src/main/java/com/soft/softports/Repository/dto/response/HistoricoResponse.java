@@ -16,9 +16,7 @@ public record HistoricoResponse(
         String ocorrencia,
 
         @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-        LocalDateTime dataCriacao,
-
-        Long tarefaId
+        LocalDateTime dataCriacao
 ) { }
 
 

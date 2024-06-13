@@ -53,8 +53,7 @@ public class HistoricoController {
         return new HistoricoResponse(
                 historico.getHistoricoId(),
                 historico.getOcorrencia(),
-                historico.getDataCriacao(),
-                historico.getTarefa().getId()
+                historico.getDataCriacao()
         );
     }
 
@@ -90,15 +89,13 @@ public class HistoricoController {
         Historico historico = new Historico(
                 null,
                 historicoRequestBody.ocorrencia(),
-                historicoRequestBody.dataCriacao(),
-                tarefa
+                historicoRequestBody.dataCriacao()
         );
         historicoRepository.save(historico);
         return new HistoricoResponse(
                 null,
                 historicoRequestBody.ocorrencia(),
-                historicoRequestBody.dataCriacao(),
-                tarefa.getId()
+                historicoRequestBody.dataCriacao()
         );
     }
 }

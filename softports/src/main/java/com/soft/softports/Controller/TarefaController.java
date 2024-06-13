@@ -80,15 +80,6 @@ public class TarefaController {
         });
         tarefa.setResponsaveis(listaResponsaveis);
 
-        List<Historico> listaHistoricos = new ArrayList<>();
-        tarefaRequestBody.historicos().forEach(item -> {
-            Historico historico = historicoRepository.findById(item).orElse(null);
-            if (historico != null) {
-                listaHistoricos.add(historico);
-            }
-        });
-        tarefa.setHistorico(listaHistoricos);
-
         List<CasoDeTeste> listaCasosDeTestes = new ArrayList<>();
         tarefaRequestBody.casoDeTeste().forEach(item -> {
             CasoDeTeste casoDeTeste = casoDeTesteRepository.findById(item).orElse(null);
@@ -127,16 +118,6 @@ public class TarefaController {
             );
             usuarioResponseList.add(usuarioResponse);
         });
-        List<HistoricoResponse> historicoResponseList = new ArrayList<>();
-        tarefa.getHistorico().forEach(item -> {
-            HistoricoResponse historicoResponse = new HistoricoResponse(
-                    item.getHistoricoId(),
-                    item.getOcorrencia(),
-                    item.getDataCriacao(),
-                    item.getTarefa().getId()
-            );
-            historicoResponseList.add(historicoResponse);
-        });
         List<CasoDeTesteResponse> casoDeTesteResponses = new ArrayList<>();
         tarefa.getCasosDeTestes().forEach(item -> {
             CasoDeTesteResponse casoDeTesteResponse = new CasoDeTesteResponse(
@@ -162,7 +143,6 @@ public class TarefaController {
                 tarefa.getDescricao(),
                 classificacaoResponseList,
                 usuarioResponseList,
-                historicoResponseList,
                 casoDeTesteResponses
         );
     }
@@ -205,11 +185,6 @@ public class TarefaController {
             Usuario usuario = usuarioRepository.findById(item).stream().toList().get(0);
             listaResponsaveis.add(usuario);
         });
-        List<Historico> listaHistoricos = new ArrayList<>();
-        tarefaRequestBody.historicos().forEach(item -> {
-            Historico historico = historicoRepository.findById(item).stream().toList().get(0);
-            listaHistoricos.add(historico);
-        });
         List<CasoDeTeste> listaCasosDeTestes = new ArrayList<>();
         tarefaRequestBody.casoDeTeste().forEach(item -> {
             CasoDeTeste casoDeTeste = casoDeTesteRepository.findById(item).stream().toList().get(0);
@@ -228,7 +203,6 @@ public class TarefaController {
                 tarefaRequestBody.descricao(),
                 listaClassificacoes,
                 listaResponsaveis,
-                listaHistoricos,
                 listaCasosDeTestes
         );
         tarefaRepository.save(tarefa);
@@ -242,7 +216,6 @@ public class TarefaController {
                 tarefaRequestBody.status(),
                 tarefaRequestBody.screenshots(),
                 tarefaRequestBody.descricao(),
-                null,
                 null,
                 null,
                 null

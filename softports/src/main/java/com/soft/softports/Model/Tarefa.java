@@ -63,10 +63,6 @@ public class Tarefa {
     )
     List<Usuario> responsaveis;
 
-    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("tarefa")
-    List<Historico> historico;
-
     @ManyToMany
     @JoinTable(
             name = "tarefa_casoDeTeste",

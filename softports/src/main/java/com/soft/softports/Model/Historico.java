@@ -27,8 +27,4 @@ public class Historico {
     @Column
     LocalDateTime dataCriacao;
 
-    @ManyToOne
-    @JoinColumn(name = "tarefa_id")
-    @JsonIgnoreProperties("historico")
-    Tarefa tarefa;
 }

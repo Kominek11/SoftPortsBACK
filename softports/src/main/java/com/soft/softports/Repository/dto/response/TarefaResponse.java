@@ -37,8 +37,6 @@ public record TarefaResponse(
 
         List<UsuarioResponse> responsaveis,
 
-        List<HistoricoResponse> historicos,
-
         List<CasoDeTesteResponse> casosDeTestes
 ) { }
 
