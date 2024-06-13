@@ -106,8 +106,7 @@ public class TarefaController {
 
     @DeleteMapping("/tarefa/{id}")
     public void deleteTarefa(@PathVariable Long id) {
-        Tarefa tarefa = tarefaRepository.findById(id).orElse(null);;
-        tarefaRepository.delete(tarefa);
+        tarefaRepository.deleteById(id);
     }
 
     private TarefaResponse convertToTarefaResponse(Tarefa tarefa) {
